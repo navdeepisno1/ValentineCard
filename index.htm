@@ -1,0 +1,202 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <title>Valentine Card</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: #efefef;
+            font-family: cursive;
+        }
+        
+        label {
+            color: #E90100;
+            font-weight: 600;
+        }
+        
+        .background-img {
+            z-index: -99999;
+            top: 0;
+            left: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: url("background.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-img"></div>
+    <div class="container-fluid" ng-app="">
+        <div class="container">
+            <br>
+            <div class="form-group">
+                <label for="usr">From:</label>
+                <input type="text" class="form-control" id="lfrom" ng-model="nameFrom">
+            </div>
+            <div class="form-group">
+                <label for="usr">To:</label>
+                <input type="text" class="form-control" id="lto" ng-model="nameTo">
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-3" style="margin-top: 12px;"><button onclick="changeQuote()" class="btn btn-lg" style="width:100%;background-color:#E90100;color:#fff;">Change Quote</button></div>
+                <div class="col-lg-3" style="margin-top: 12px;"><a id="downloadImg" class="btn btn-lg" style="width:100%;background-color:#E90100;color:#fff;">Share</a></div>
+                <div class="col-lg-3"></div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="card-content" style="box-shadow: 0 0 10px 2px #777;">
+                        <div class="card-img-overlay" style="color: #fff;">
+                            <div class="card-body" style="position: absolute;width:100%;top:50%;left:50%;transform:translateX(-50%) translateY(-50%);font-family:Brush Script MT;">
+                                <div class="card-text" style="padding: 12px 24px;font-size: 2.5vw;">My Love <span ng-bind="nameTo"></span></div>
+                                <div id="card-quote" style="font-size: 3.5vw;padding-left:24px;padding-right:24px;font-family:Brush Script MT;">There is only one happiness in life: to love and be loved.</div>
+                                <div class="card-text" style="text-align: right; padding:24px;font-size: 2.5vw;">Your Love <span ng-bind="nameFrom"></span></div>
+                            </div>
+                        </div>
+                        <img class="card-img-top" src="card-bg.png" alt="Card image">
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+        <br>
+    </div>
+    <div class="conainer-fluid" style="background-color: rgba(0,0,0,0.75);color:#fff;text-align:center;padding:24px">
+        <div class="container">
+            &copy; SUVIDHA 2021
+        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script>
+        var messages = ["All you need is love.But a little chocolate now and then doesn' t hurt.",
+            "I love being married.It' s so great to find one special person you want to annoy for the rest of your life.",
+            "To love oneself is the beginning of a lifelong romance.",
+            "True love comes quietly, without banners or flashing lights.If you hear bells, get your ears checked.",
+            "I love Mickey Mouse more than any woman I have ever known.",
+            "Love is a grave mental disease.",
+            "I want a man who' s kind and understanding.Is that too much to ask of a millionaire ? ",
+            "It' s better to have loved and lost than to have to do forty pounds of laundry a week.",
+            "Without Valentine' s Day, February would be… well, January.",
+            "Love is what you' ve been through with somebody.",
+            "A successful marriage requires falling in love many times, always with the same person.",
+            "Love doesn' t make the world go round.Love is what makes the ride worthwhile.",
+            "Grow old with me!The best is yet to be.",
+            "The Eskimos had fifty - two names for snow because it was important to them : there ought to be as many for love.",
+            "It is astonishing how little one feels alone when one loves.", , "Love is the greatest refreshment in life.",
+            "Where there is love, there is life.",
+            "The best and most beautiful things in the world cannot be seen or even touched.They must befelt with the heart.",
+            "There are never enough I Love You' s.",
+            "There is only one happiness in life: to love and be loved.",
+            "Valentine' s Day is the poet' s holiday.",
+            "Your flaws are perfect for the heart that' s meant to love you.",
+            "Lovers don't finally meet somewhere.They' re in each other all along.",
+            "A flower cannot blossom without sunshine, and man cannot live without love.",
+            "You know you' re in love when you can' t fall asleep because reality is finally better than your dreams.",
+            "The art of love… is largely the art of persistence.",
+            "Love planteda rose, and the world turned sweet.",
+            "What the world really needs is more love and less paperwork.",
+            "Money can' t buy love, but it improves your bargaining position.",
+            "If love is the answer, could you please rephrase the question ? ",
+            "Look, there' s no metaphysics on earth like chocolates.",
+            "Love is like an hourglass, with the heart filling up as the brain empties.",
+            "Lord!I wonder what fool it was that first invented kissing.",
+            "This fire that we call Loving is too strong for human minds.But just right for human souls.",
+            "Each time you love, love as deeply as if it were forever.",
+            "Love is when the desire to be desired takes you so badly that you feel you could die of it.",
+            "Love is something eternal;the aspect may change, but not the essence.",
+            "A true lover always feels in debt to the one he loves.",
+            "Gravitation is not responsible for people falling in love.",
+            "Loving is not just looking at each other, it' s looking in the same direction.",
+            "Being deeply loved by someone gives you strength,while loving someone deeply gives you courage.",
+            "The heart has its reasons, which reason knows not.",
+            "Love is composed of a single soul inhabiting two bodies.", "When love is not madness, it is not love.",
+            "Nobody has ever measured, even poets, how much a heart can hold.",
+            "Love is metaphysical gravity.",
+            "Love is a canvas furnished by nature and embroidered by imagination.",
+            "If you remember me, then I don't care if everyone else forgets.",
+            "Love is being stupid together.",
+            "Love is a condition in which the happiness of another person is essential to your own.",
+            "And suddenly all the love songs were about you.",
+            "Rare as is true love, true friendship is rarer.",
+            "A friend is what the heart needs all the time.",
+            "My best friend is the one who brings out the best in me.",
+            "Friendship marks a life even more deeply than love.Love risks degenerating into obsession, friendship is never anything but sharing.",
+            "A friend is one that knows you as you are, understands where you have been, accepts what you have become, and still, gently allows you to grow.",
+            "True friends are like diamonds— bright, beautiful, valuable and always in style.",
+            "There is nothing better than a friend unless it is a friend with chocolate.",
+            "Friends are medicine for a wounded heart, and vitamins for a hopeful soul.",
+            "The real lover is a man who can thrill you by kissing your forehead or smiling into your eyes or just staring into space",
+            "Money is no match for the richness you bring to my life.",
+            "Loved you yesterday, love you still, always have, always will.",
+            "If you live to be a hundred, I want to live to be a hundred minus one day so I never have to live without you.",
+            "A life without love is like a year without summer.",
+            "If I know what love is, it is because of you.",
+            "Your words are my food, your breath is my wine.You are everything to me.",
+            "I' m much more me when I' m with you.",
+            "My heart is and always will be yours.",
+            "Whatever our souls are made of, his and mine are the same.",
+            "Don ' t forget I'm just a girl, standing in front of a boy, asking him to love her.",
+            "I saw that you were perfect, and so I loved you.Then I saw that you were not perfect and I loved you even more ",
+            "Chocolate can't compete with the sweetness of loving you.",
+            "You are my heart, my life, my one and only thought.",
+            "You are the finest, loveliest, tenderest,and most beautiful person I have ever known— and even that is an understatement.",
+            "If I had a flower for every time I thought of you… I could walk through my garden forever.",
+            "I swear I couldn ' t love you more than I do right now, and yet I know I will tomorrow.",
+            "In my eyes, you are the most beautiful and tender woman in the whole world.I love you.", "Love is friendship that has caught on fire",
+            "I know of only one duty, and that is to love",
+            "Nobody will ever win the battle of the sexes.There' s too much fraternizing with the enemy.",
+            "I love you, not only for what you are but for what I am when I am with you.",
+            "The best thing to hold onto in life is each other.",
+            "If I had to dream up the perfect woman, she wouldn' t even come close to you.",
+            "I look at you and see the rest of my life in front of my eyes."
+        ];
+
+        function changeQuote() {
+            var i = messages.length;
+            var s = Math.floor(Math.random() * i);
+            document.getElementById("card-quote").innerHTML = "\" " + messages[s] + " \"";
+        }
+
+        function save(canvas) {
+            //window.open(canvas.toDataURL());
+            getCanvas = canvas;
+            var imgageData = getCanvas.toDataURL("image/png");
+            var newData = imgageData.replace(
+                /^data:image\/png/, "data:application/octet-stream");
+            $("#downloadImg").attr(
+                "download", "Valentine.png").attr(
+                "href", newData);
+        }
+
+        $(document).ready(function() {
+            // Global variable 
+            $("#downloadImg").on('click', function() {
+                html2canvas(document.getElementById("card-content"), {
+                    allowTaint: true,
+                    logging: true,
+                    useCORS: true,
+                    taintTest: false,
+                    onrendered: save
+                }).then(save);
+            });
+        });
+    </script>
+</body>
+
+</html>
