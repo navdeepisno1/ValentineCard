@@ -182,11 +182,11 @@
         }
 
         function save(canvas) {
-            //window.open(canvas.toDataURL());
             getCanvas = canvas;
             var imgageData = getCanvas.toDataURL("image/png");
             var newData = imgageData.replace(
                 /^data:image\/png/, "data:application/octet-stream");
+            window.open(newData);
             $("#downloadImg").attr(
                 "download", "Valentine.png").attr(
                 "href", newData);
