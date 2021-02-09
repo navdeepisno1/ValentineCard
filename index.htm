@@ -10,14 +10,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
-        body {
-            background-color: #efefef;
+        @font-face {
+            font-family: "Cursive";
+            src: url(GreatVibes-Regular.otf);
+        }
+        
+        * {
             font-family: cursive;
         }
         
+        body {
+            background-color: #efefef;
+        }
+        
         label {
+            font-size: 28px;
             color: #E90100;
-            font-weight: 600;
         }
         
         .background-img {
@@ -35,7 +43,6 @@
         
         .card-v {
             border-radius: 5px;
-            box-shadow: 0 0 10px 2px #777;
             background-image: url("card-bg.png");
             background-repeat: no-repeat;
             background-position: center;
@@ -45,7 +52,6 @@
 </head>
 
 <body>
-
     <div class="background-img"></div>
     <div class="container-fluid" ng-app="">
         <div class="container">
@@ -61,19 +67,19 @@
 
             <div class="row">
                 <div class="col-lg-3"></div>
-                <div class="col-lg-3" style="margin-top: 12px;"><button onclick="changeQuote()" class="btn btn-lg" style="width:100%;background-color:#E90100;color:#fff;">Change Quote</button></div>
-                <div class="col-lg-3" style="margin-top: 12px;"><a id="downloadImg" class="btn btn-lg" style="width:100%;background-color:#E90100;color:#fff;">Share</a></div>
+                <div class="col-lg-3" style="margin-top: 12px;"><button onclick="changeQuote()" class="btn btn-lg" style="width:100%;background-color:#E90100;color:#fff;">Quote</button></div>
+                <div class="col-lg-3" style="margin-top: 12px;"><a id="downloadImg" class="btn btn-lg" style="width:100%;background-color:#E90100;color:#fff;">Download</a></div>
                 <div class="col-lg-3"></div>
             </div>
             <br>
             <br>
             <div class="row">
-                <div class="col-lg-12">
-                    <div id="card-content" class="card-v">
-                        <div style="color: #fff;">
-                            <div class="card-body" style="font-family:Brush Script MT;">
+                <div class="col-lg-12" style="padding: 12px;" id="card-content">
+                    <div class="card-v">
+                        <div style="color: #fff; background-color:transparent;">
+                            <div class="card-body">
                                 <div class="card-text" style="padding: 12px 24px;font-size: 2.5vw;">My Love <span ng-bind="nameTo"></span></div>
-                                <div id="card-quote" style="font-size: 3.5vw;padding-left:24px;padding-right:24px;font-family:Brush Script MT;">There is only one happiness in life: to love and be loved.</div>
+                                <div id="card-quote" style="font-size: 3.5vw;padding-left:24px;padding-right:24px;">There is only one happiness in life: to love and be loved.</div>
                                 <div class="card-text" style="text-align: right; padding:24px;font-size: 2.5vw;">Your Love <span ng-bind="nameFrom"></span></div>
                             </div>
                         </div>
@@ -182,24 +188,24 @@
         }
 
         function save(canvas) {
-            getCanvas = canvas;
-            var imgageData = getCanvas.toDataURL("image/png");
+
+            var ctx = canvas.getContext('2d');
+            var imgageData = canvas.toDataURL("image/png");
             var newData = imgageData.replace(
                 /^data:image\/png/, "data:application/octet-stream");
-            
-            $("#downloadImg").attr(
-                "download", "Valentine.png").attr(
-                "href", newData);
+            window.open(imgageData);
         }
 
         $(document).ready(function() {
             // Global variable 
+
             $("#downloadImg").on('click', function() {
                 html2canvas(document.getElementById("card-content"), {
-                    allowTaint: true,
+                    letterRendering: 1,
+                    allowTaint: false,
+                    backgroundColor: "#000",
                     logging: true,
                     useCORS: true,
-                    taintTest: false,
                     onrendered: save
                 }).then(save);
             });
