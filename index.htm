@@ -193,7 +193,11 @@
             var imgageData = canvas.toDataURL("image/png");
             var newData = imgageData.replace(
                 /^data:image\/png/, "data:application/octet-stream");
-            window.open(imgageData);
+            //window.open(imgageData);
+            var download = document.createElement('a');
+            download.href = newData;
+            download.download = 'Valentine.png';
+            download.click();
         }
 
         $(document).ready(function() {
